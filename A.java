@@ -1,20 +1,25 @@
-package MultiCatchBlock;
+import java.sql.*;
 
 public class A {
-	
 	public static void main(String[] args) {
-		try {
-			int i = 10/0;
-		}catch(ArithmeticException a) {
-			System.out.println(a);
-		}catch( NumberFormatException n) {
 		
-		}catch(Exception e) {
-			System.out.println(e);
-		}catch(Throwable t) {
+		//Connect to database
+		try {
+			
+
+			//Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/neel_demo_db", "root", "test");
+			System.out.println(con);
+			
+			
+		} catch (Exception e) {
 			
 		}
+		
+		//perform sql Operation
+		
+		//close the connecction
+		
 	}
+
 }
-
-
