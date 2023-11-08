@@ -1,7 +1,8 @@
-package p1;
+package app_java_5;
 
 public class A {
-  public void test1() {
-	  System.out.println(500);
-  }
+public void xyz () {
+	System.out.println("xyz");
+}
+
 }
