@@ -1,8 +1,5 @@
-package app_java_5;
+package app_java_1;
 
 public class A {
-public void xyz () {
-	System.out.println("xyz");
-}
 
 }
