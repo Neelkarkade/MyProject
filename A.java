@@ -1,5 +1,6 @@
-package app_java_1;
-
-public class A {
-
-}
+package p1;
+class A1 {
+	  public void test1() {
+		  System.out.println(500);
+	  }
+	}
