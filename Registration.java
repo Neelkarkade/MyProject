@@ -1,50 +1,62 @@
-package p1;
+package com.webapp.entity;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+@Entity
+@Table(name="registrations")
+public class Registration {
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-@WebServlet("/RegPage")
-public class Registration extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-   
-    public Registration() {
-        super();
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name=request.getParameter("name");
-		String city=request.getParameter("city");
-		String email=request.getParameter("email");
-		String mobno=request.getParameter("mobno");
-		System.out.println(name);
-		System.out.println(city);
-		System.out.println(email);
-		System.out.println(mobno);
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/studentinfo","root","test");
-			Statement stmt=con.createStatement();
-			stmt.executeUpdate("insert into student values ('"+name+"','"+city+"','"+email+"','"+mobno+"')");
-			con.close();
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+private long id;
 	
-	}
+@Column(name ="first_name",length = 45)
+private String firstName;//first_name
+	
+@Column(name ="lastName",length = 45)
+private String lastName;
+
+@Column(name ="email",unique = true,  length = 128)
+private String email;
+
+@Column(name = "mobile")
+private long mobile;
+
+public long getId() {
+	return id;
+}
+public void setId(long id) {
+	this.id = id;
+}
+public String getFirstName() {
+	return firstName;
+}
+public void setFirstName(String firstName) {
+	this.firstName = firstName;
+}
+public String getLastName() {
+	return lastName;
+}
+public void setLastName(String lastName) {
+	this.lastName = lastName;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
+}
+public long getMobile() {
+	return mobile;
+}
+public void setMobile(long mobile) {
+	this.mobile = mobile;
+}
+
 
 }
