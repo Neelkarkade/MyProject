@@ -1,5 +1,7 @@
 package com.webapp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +16,10 @@ private RegistrationRepository registrationRepository;
 public void saveRegistration(Registration registration) {
 	registrationRepository.save(registration);
 }
+
+public List<Registration> getAllRegistrations() {
+	List<Registration> regs = registrationRepository.findAll();
+	return regs;
+}
+
 }
