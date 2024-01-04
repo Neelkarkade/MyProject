@@ -1,6 +1,11 @@
-package p1;
-class A1 {
-	  public void test1() {
-		  System.out.println(500);
-	  }
+package app_java_1;
+
+public class A {
+	int x;
+	public static void main(String[] args) {
+		A a1 = new A();
+		System.out.println(a1.x);
+		
+
 	}
+}
