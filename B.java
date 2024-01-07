@@ -1,9 +1,13 @@
-package p2;
+package app_java_5;
 
-import p1.A;
+public class B extends A{// Super Keyword
+	
+	 public static void main(String[]args) {
+		 B b1 = new B();
+		b1.test();
+	}	
+	public void test () {
+		super.xyz();
+	}
+}
 
-public class B {
-public static void main(String[]args){
-A a1 = new A();
-}
-}
