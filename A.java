@@ -1,8 +1,6 @@
-package app_java_5;
+package app_java_8;
 
 public class A {
-public void xyz () {
-	System.out.println("xyz");
-}
+	static int j = 10;
 
 }
