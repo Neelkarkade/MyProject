@@ -1,13 +1,8 @@
-package app_java_2;
+package app_java_5;
 
 public class A {
-  A(){
-	  System.out.println("A");
-  }
-  public static void main(String[] args) {
-	  A a1 = new A();
-	  A a2 = new A();
-			  
-  }
-  }
-  
+public void xyz () {
+	System.out.println("xyz");
+}
+
+}
