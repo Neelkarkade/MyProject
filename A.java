@@ -1,25 +1,11 @@
-import java.sql.*;
+package app_java_1;
 
 public class A {
+	int x;
 	public static void main(String[] args) {
+		A a1 = new A();
+		System.out.println(a1.x);
 		
-		//Connect to database
-		try {
-			
 
-			//Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/neel_demo_db", "root", "test");
-			System.out.println(con);
-			
-			
-		} catch (Exception e) {
-			
-		}
-		
-		//perform sql Operation
-		
-		//close the connecction
-		
 	}
-
 }
