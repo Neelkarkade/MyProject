@@ -1,25 +1,14 @@
-import java.sql.*;
-
+package exception_handling;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 public class A {
-	public static void main(String[] args) {
-		
-		//Connect to database
-		try {
-			
+ public static void main(String[] args) throws FileNotFoundException {
+	
+	
+	 FileReader Fr = new FileReader("G://test.text");
 
-			//Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/neel_demo_db", "root", "test");
-			System.out.println(con);
-			
-			
-		} catch (Exception e) {
-			
-		}
-		
-		//perform sql Operation
-		
-		//close the connecction
-		
-	}
+	 
+ }
 
+public char[] x;
 }
