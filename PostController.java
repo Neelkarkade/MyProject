@@ -1,42 +1,36 @@
-package com.myblog.myblog11.controller;
+package com.microservice.post.controller;
 
-import com.myblog.myblog11.payload.PostDto;
-import com.myblog.myblog11.service.PostService;
+import com.microservice.post.Repository.PostRepository;
+import com.microservice.post.entity.Post;
+import com.microservice.post.service.PostService;
+import com.payload.PostDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
 
+    @Autowired
     private PostService postService;
 
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
-
     @PostMapping
-    public ResponseEntity<PostDto>createPost(@RequestBody PostDto postDto){
-        PostDto dto = postService.createPost(postDto);
-        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+    public ResponseEntity<Post> savePost(@RequestBody Post post) {
+        Post newPost = postService.savePost(post);
+        return new ResponseEntity<>(newPost, HttpStatus.CREATED);
     }
-    //http://localhost:8080/api/posts/particular?id=1
-@GetMapping("/particular")
-    public ResponseEntity<PostDto> getPostById(@RequestParam long id){
-    PostDto dto = postService.getPostById(id);
-   return new ResponseEntity<>(dto,HttpStatus.OK);
-}
-
-//http://localhost:8080/api/posts?pageNo=0&pageSize=5
-@GetMapping
-public List<PostDto> getAllPost(
-        @RequestParam(name = "pageNo", required = false, defaultValue = "0") int pageNo,
-        @RequestParam(name = "pageSize", required = false, defaultValue = "3") int pageSize
-){
-  List<PostDto> postDtos =  postService.getAllPosts(pageNo,pageSize);
-return postDtos;
-}
+//http://localhost:8081/api/posts/{postId}
+    @GetMapping("/{postId}")
+    public Post getPostByPostId(@PathVariable String postId) {
+        Post post = postService.findPostById(postId);
+        return post;
+    }
+    //http://localhost:8081/api/posts/{postId}/comments
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<PostDto> getPostWithComments(@PathVariable String postId){
+        PostDto postDto = postService.getPostWithComments(postId);
+        return new ResponseEntity<>(postDto,HttpStatus.OK);
+    }
 }
