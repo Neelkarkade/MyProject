@@ -1,22 +1,19 @@
-package com.microservice.post.entity;
+package com.micriservice.comment.payload;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "posts")
+@NoArgsConstructor
 public class Post {
-    @Id
-    private String id;
+
+    private String postId;
+
     private String title;
-    private String description;
-    private String content;
+     private String description;
+     private String content;
+
 
 }
