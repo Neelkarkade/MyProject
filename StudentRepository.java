@@ -1,18 +1,10 @@
-package com.demo.repository;
+package net.javaguides.sms.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import net.javaguides.sms.entity.Student;
+
+public interface StudentRepository extends JpaRepository<Student,Long>{
 
 
-
-import java.util.Optional;
-
-import org.springframework.data.repository.CrudRepository;
-
-import com.demo.entity.Student;
-//CURD Operation on Entity Class
-public interface StudentRepository extends CrudRepository<Student, Integer> {
-
-
-Optional<Student>findByEmail(String email);
-Optional<Student> findByMobile(long mobile);
-boolean existsByEmail(String email);
-Iterable<Student> findBycity(String city);
 }
