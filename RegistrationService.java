@@ -22,4 +22,15 @@ public List<Registration> getAllRegistrations() {
 	return regs;
 }
 
+public void deleteRegById(long id) {
+registrationRepository.deleteById(id);	
+}
+
+public Registration getRegistrationById(long id) {
+	Registration reg = registrationRepository.findById(id).get();
+	return reg;
+}
+
+
+
 }
