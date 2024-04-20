@@ -1,64 +1,8 @@
-server:
-  port: 8083
-
-spring:
-  application:
-    name: API-GATEWAY
-
-    cloud:
-      gateway:
-        routes:
-        - id: POST-SERVICE
-          url: lb://POST-SERVICE
-          predicates:
-            - Path=/api/post/**
-
-        - id: COMMENT-SERVICE
-          uri: lb://COMMENT-SERVICE
-          predicates:
-            -Path=/api/comments/**
-
-
 eureka:
   instance:
-    prefer-ip-address: true
+    hostname: localhost
   client:
-    fetch-registry: true
-    registry-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-
-management:
-  health:
-    circuitbreakers:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health
-
-  endpoint:
-    health:
-      show-details: always
-
-
-
-
-
-resilience4j:
-  circuitbreaker:
-    instances:
-      commentBreaker:
-        registerHealthIndicator: true
-        eventConsumerBufferSize: 10
-        failureRateThreshold: 50
-        minimumNumberOfCall: 5
-        automaticTransitionFromOpenToHalfOpenEnabled: true
-        waitDurationInOpenState: 6s
-        permittedNumberOfCallsHalfOpenState: 3
-        slidingWindowSize: 10
-        slidingWindowType: COUNT_BASED
-
-
-
-
+    register-with-eureka:false
+    fetch-registry:false
+server:
+  port: 8761
