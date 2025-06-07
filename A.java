@@ -1,8 +1,12 @@
-package app_javaPratice_1;
+package app_javaPratice_17;
+
 public class A {
-	 int employeeId = 10;
 	public static void main(String[] args) {
-int currentDate;
+		A a1 = null;
+		System.out.println(a1);
 		
+		A a2 = new A();
+		System.out.println(a2);
 	}
+
 }
