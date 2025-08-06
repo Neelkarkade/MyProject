@@ -1,9 +1,8 @@
-package app_javaPratice_17;
+package BuildingMethodWhenTheWrittenTypeIsInt;
 
-import java.io.Serializable;
-
-public class A implements Serializable{
-	public String name="mike";//ObjectToBinaryNumberToFileA2,FileToBinaryNumberToObjectB2
-	public String password="testing";
-
+public interface A {
+public static void main(String[] args) {// If you make a variable final the re initialization is not allowed
+	final int x = 10;
+	x = 10;// Error
+}
 }
