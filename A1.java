@@ -1,5 +1,7 @@
-package app_javaPratice_20;
+package BuildingMethodWhenTheWrittenTypeIsInt;
 
 public class A1 {
-
+final public void test() {
+	
+}
 }
