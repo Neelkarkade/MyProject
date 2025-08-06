@@ -1,6 +1,7 @@
-package InCompleteMethodInInterface;
+package MultiLevelInheritance;
 
 public interface A {
-	public static void test();// Incomplete(abstract) static method are not allowed in Interface
+	public void test1();
+	
 
 }
