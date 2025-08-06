@@ -1,6 +1,7 @@
-package InCompleteMethodInInterface;
+package MultiLevelInheritance;
 
-public class B {
+public interface B extends A {
+	public void test2();
 	
 
 }
