@@ -1,6 +1,6 @@
-package IfInterfaceHaveTwoMethodAndClassHaveToDevelope;
+package InCompleteMethodInInterface;
 
 public interface A {
-	public void test1();
-    public void test2();
+	public static void test();// Incomplete(abstract) static method are not allowed in Interface
+
 }
