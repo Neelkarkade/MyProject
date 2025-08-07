@@ -1,5 +1,5 @@
-package BuildingMethodWhenTheWrittenTypeIsInt;
-
-final public class A2 {
-
+package LamdaExpresion;
+@FunctionalInterface
+public interface A2 {
+public int test1();
 }
