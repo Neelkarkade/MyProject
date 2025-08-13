@@ -3,11 +3,13 @@ package com.studentapp.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.studentapp.model.DAOServiceImpl;
 
@@ -23,6 +25,12 @@ public class LoginController extends HttpServlet {
     }
 
 	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+System.out.println("init..");
+	}
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
@@ -35,6 +43,9 @@ public class LoginController extends HttpServlet {
        service.connectDB();
        boolean status = service.verifyLogin(email, password);
        if(status) {
+    	   HttpSession session = request.getSession(true);
+    	   session.setAttribute("email", email);
+    	   session.setMaxInactiveInterval(10);
     	   RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/inquiry.jsp");
     	   rd.forward(request, response);
        }else {
@@ -42,6 +53,13 @@ public class LoginController extends HttpServlet {
     	   RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
     	   rd.forward(request, response);
        }
+	}
+
+
+	@Override
+	public void destroy() {
+		System.out.println(100);
+		super.destroy();
 	}
 
 }
