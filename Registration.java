@@ -1,47 +1,44 @@
-package p1;
+package com.demoee.entity;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.persistence.*;
 
-@WebServlet("/reg")
-public class Registration extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-   
-    public Registration() {
-        super();
-    }
-   @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("do Get");
+@Entity
 
+public class Registration {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	private String name;
+	private String email;
+	private String mobile;
+	
+	
+	public long getId() {
+		return id;
 	}
-   @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-String name = request.getParameter("firstName");	
-String email = request.getParameter("emailId");
-String mobile = request.getParameter("mobile");
-System.out.println(name);
-System.out.println(email);
-System.out.println(mobile);
-  try {
-	Class.forName("com.mysql.cj.jdbc.Driver");
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/augdb","root","test");
-	         Statement stmnt= con.createStatement();
-	         stmnt.executeUpdate("insert into registration values ('"+name+"','"+email+"','"+mobile+"')");
-             con.close();
-  } catch (Exception e) {
-       e.printStackTrace();
-    }
-
-   }
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	
+	
 
 }
