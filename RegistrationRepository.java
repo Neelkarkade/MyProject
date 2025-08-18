@@ -1,10 +1,22 @@
-package com.webapp.repository;
+package com.demoee.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-import com.webapp.entity.Registration;
+import org.springframework.data.repository.CrudRepository;
 
+import com.demoee.entity.Registration;
 
-public interface RegistrationRepository extends JpaRepository<Registration, Long> {
+public interface RegistrationRepository extends CrudRepository<Registration, Long>{
+
+	
+	
+	
+	Optional<Registration> findByEmail(String email);
+	
+	Optional<Registration> findByMobile(String mobile);
+	
+    Iterable<Registration> findByEmailOrMobile(String email,String mobile);
+
+    Optional<Registration> findByEmailAndMobile(String email,String mobile);
 
 }
