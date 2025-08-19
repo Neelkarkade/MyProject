@@ -1,5 +1,6 @@
 package com.demoee;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
@@ -23,9 +24,9 @@ class DemoeeApplicationTests {
   @Test
   void saveRegistration() {
 	  Registration r = new Registration();
-	  r.setName("adam");
-	  r.setEmail("adam@gmail.com");
-	  r.setMobile("9454565655");
+	  r.setName("mike");
+	  r.setEmail("mike@gmail.com");
+	  r.setMobile("9525565655");
 	  registrationRepository.save(r);
   }
   
@@ -61,21 +62,17 @@ class DemoeeApplicationTests {
   
   @Test
   void getRegistrationByEmail() {
-	  Optional<Registration> val = registrationRepository.findByEmail("adam@gmail.com");
-	  if(val.isPresent()) {
-		  Registration registration = val.get();
+	  Registration registration = registrationRepository.findByEmployeeEmail("adam@gmail.com");
 		  System.out.println(registration.getId());
 		  System.out.println(registration.getName());
 		  System.out.println(registration.getEmail());
 		  System.out.println(registration.getMobile());
-	  }else {
-		  System.out.println("No record found");
-	  }
+	  
   }
   
   @Test
   void getRegistrationByMobile() {
-	  Optional<Registration> val = registrationRepository.findByMobile("9454565655");
+	  Optional<Registration> val = registrationRepository.findByMobile("5554565655");
 	  if(val.isPresent()) {
 		  Registration registration = val.get();
 		  System.out.println(registration.getId());
@@ -89,7 +86,7 @@ class DemoeeApplicationTests {
   
   @Test
   void getAllRegistrationsByEmailOrMobile() {
-	  Iterable<Registration> allreg = registrationRepository.findByEmailOrMobile("mike@gmail.com","5454565654");
+	  List<Registration> allreg = registrationRepository.findByEmailOrMobile("mike@gmail.com","5554565655");
 	  for(Registration r:allreg) {
 		  System.out.println(r.getId());
 		  System.out.println(r.getName());
@@ -99,15 +96,11 @@ class DemoeeApplicationTests {
   }
   @Test
   void getAllRegistrationsByEmailAndMobile() {
-	  Optional<Registration> val = registrationRepository.findByEmailAndMobile("mike@gmail.com","5554565855");
-	  if(val.isPresent()) {
-		  Registration registration = val.get();
-		  System.out.println(registration.getId());
+	      Registration registration = registrationRepository.findByEmailAndMobile("mike@gmail.com","9525565655");
+	      System.out.println(registration.getId());
 		  System.out.println(registration.getName());
 		  System.out.println(registration.getEmail());
 		  System.out.println(registration.getMobile());
-	  }else {
-		  System.out.println("No record found");
-	  }
+	  
   }
 }
