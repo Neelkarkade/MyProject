@@ -23,6 +23,11 @@ public class RegistrationController {
 	public String viewRegistrationPage() {
 		return "registration";
 	}
+	
+	@RequestMapping("/list_registrations")
+	public String listRegistrations() {
+		return "list_registrations";
+	}
 //	@RequestMapping("/saveReg")
 //	public String saveRegistration(
 //			@ModelAttribute Registration registration,
