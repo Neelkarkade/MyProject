@@ -1,56 +1,57 @@
-package com.demo.entity;
+package com.exampleapi.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "registrations")
 public class Registration {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long  id;
-	
-	@Column(name="name", nullable = false, length = 45)
-	private String name;
-	
-	@Column(name="email_id", nullable = false, length = 128, unique = true)
-	private String emailId;
-	
-	@Column(name="mobile", nullable = false, length = 10, unique = true)
-	private String mobile;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-	public long getId() {
-		return id;
-	}
+    @Column(name = "name", nullable = false, length = 1000)
+    private String name;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Column(name = "email_id", nullable = false)
+    private String emailId;
 
-	public String getName() {
-		return name;
-	}
+    @Column(name = "mobile", nullable = false, length = 10)
+    private String mobile;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getEmailId() {
-		return emailId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getMobile() {
-		return mobile;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	
+    public String getEmailId() {
+        return emailId;
+    }
 
-	
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 }
