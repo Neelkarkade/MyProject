@@ -1,69 +1,64 @@
-package com.demo.controller;
+package com.exampleapi.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.exampleapi.entity.Registration;
+import com.exampleapi.payload.RegistrationDto;
+import com.exampleapi.service.RegistrationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import com.demo.dto.RegistrationDto;
-import com.demo.entity.Registration;
-import com.demo.service.RegistrationService;
+import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1/registration")
 public class RegistrationController {
-	
-@Autowired
-	private RegistrationService rs;
-	
-	// http://localhost:8080/viewReg
-	
-	@RequestMapping("/viewReg")
-	public String viewRegistrationPage() {
-		return "registration";
-	}
-	
-	@RequestMapping("/list_registrations")
-	public String listRegistrations() {
-		return "list_registrations";
-	}
-//	@RequestMapping("/saveReg")
-//	public String saveRegistration(
-//			@ModelAttribute Registration registration,
-//			ModelMap model
-//			) {
-//		        rs.saveRegistration(registration);
-//		        model.addAttribute("msg","Record is created");
-//			    return "registration";
-//}
-//	@RequestMapping("/saveReg")
-//	public String saveRegistration(
-//			@RequestParam String name,
-//			@RequestParam String emailId,
-//			@RequestParam String mobile,
-//			ModelMap model
-//			) {
-//		Registration registration = new Registration();
-//		registration.setName(name);
-//		registration.setEmailId(emailId);
-//		registration.setMobile(mobile);
-//		        rs.saveRegistration(registration);
-//		        model.addAttribute("msg","Record is created");
-//			    return "registration";
-//}
-	
-	@RequestMapping("/saveReg")
-	public String saveRegistration(
-			RegistrationDto dto,
-			ModelMap model
-			) {
-		Registration registration = new Registration();
-		registration.setName(dto.getName());
-		registration.setEmailId(dto.getEmailId());
-		registration.setMobile(dto.getMobile());
-		        rs.saveRegistration(registration);
-		        model.addAttribute("msg","Record is created");
-			    return "registration";
-  }
+
+    private RegistrationService registrationService;
+
+    public RegistrationController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
+    }
+    //http://localhost:8080/api/v1/registration
+
+    @PostMapping
+    public  ResponseEntity<RegistrationDto> addRegistration(
+           @RequestBody RegistrationDto registrationDto
+    ){
+        RegistrationDto  r = registrationService.saveRegistration(registrationDto);
+        return new ResponseEntity<>(r, HttpStatus.CREATED);
+    }
+
+   //  http://localhost:8080/api/v1/registration/record/{id}
+    @DeleteMapping("/record/{id}")
+    public String deleteRegistration(
+            @PathVariable long id
+    ){
+        registrationService.deleteRegistration(id);
+        return "delete";
+    }
+
+    @PutMapping("{id}")
+    public String updateRegistration(
+            @PathVariable long id,
+            @RequestBody Registration registration
+    ){
+        registrationService.updateRegistration(id, registration);
+        return "done";
+    }
+
+    // http://localhost:8080/api/v1/registration
+    @GetMapping
+    public List<Registration> getAllregistrations(){
+        List<Registration> registrations = registrationService.getAllregistrations();
+        return registrations;
+    }
+
+    // http://localhost:8080/api/v1/registration
+   @GetMapping("/id/{id}")
+    public Registration getRegistrationById(
+            @PathVariable long id
+   ){
+        Registration registration = registrationService.getRegistrationById(id);
+        return registration;
+   }
 }
