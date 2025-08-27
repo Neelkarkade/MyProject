@@ -11,13 +11,13 @@ import lombok.Setter;
 public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+
     private Long id;
 
     @Column(name = "name", nullable = false, length = 1000)
     private String name;
 
-    @Column(name = "email_id", nullable = false)
+    @Column(name = "email_id", nullable = true)
     private String emailId;
 
     @Column(name = "mobile", nullable = false, length = 10)
