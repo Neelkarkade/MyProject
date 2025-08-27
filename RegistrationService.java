@@ -4,6 +4,7 @@ import com.exampleapi.entity.Registration;
 
 import com.exampleapi.payload.RegistrationDto;
 import com.exampleapi.repository.RegistrationRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,23 +13,19 @@ import java.util.Optional;
 @Service
 public class RegistrationService {
     private RegistrationRepository registrationRepository;
-
-    public RegistrationService(RegistrationRepository registrationRepository) {
+    private ModelMapper modelMapper;
+    public RegistrationService(RegistrationRepository registrationRepository, ModelMapper modelMapper) {
         this.registrationRepository = registrationRepository;
+        this.modelMapper = modelMapper;
     }
 
     public RegistrationDto saveRegistration(RegistrationDto registrationDto) {
         //Convert to Entity From Dto
-        Registration registration = new Registration();
-        registration.setName(registrationDto.getName());
-        registration.setEmailId(registrationDto.getEmail());
-        registration.setMobile(registrationDto.getMobile());
+      Registration registration = convertDtoToEntity(registrationDto);
+        registration.setId(1L);
         Registration savedReg = registrationRepository.save(registration);
         //Convert entity to dto
-        RegistrationDto savedRegDto = new RegistrationDto();
-        savedRegDto.setName(savedRegDto.getName());
-        savedRegDto.setEmail(savedRegDto.getMobile());
-        savedRegDto.setMobile(savedRegDto.getMobile());
+        RegistrationDto savedRegDto = convertEntityToDto(savedReg);
         return savedRegDto;
     }
 
@@ -55,5 +52,18 @@ public class RegistrationService {
         Optional<Registration> opReg = registrationRepository.findById(id);
         Registration reg = opReg.get();
         return reg;
+    }
+
+    Registration convertDtoToEntity(
+            RegistrationDto registrationDto
+    ){
+        Registration registration = modelMapper.map(registrationDto, Registration.class);
+        return registration;
+    }
+    RegistrationDto convertEntityToDto(
+            Registration registration
+    ){
+        RegistrationDto registrationDto = modelMapper.map(registration, RegistrationDto.class);
+                return registrationDto;
     }
 }
