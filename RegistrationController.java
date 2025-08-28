@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 
 @RestController
@@ -46,19 +48,24 @@ public class RegistrationController {
         return "done";
     }
 
-    // http://localhost:8080/api/v1/registration
+    // http://localhost:8080/api/v1/registration?pageNo=0&pageSize=5
     @GetMapping
-    public List<Registration> getAllregistrations(){
-        List<Registration> registrations = registrationService.getAllregistrations();
+    public List<Registration> getAllregistrations() {
+       @RequestParam(defaultValue = "0",required = false) int pageNo,
+       @RequestParam(defaultValue = "5",required = false) int pageSize
+    }
+
+        List<Registration> registrations = registrationService.getAllregistrations(pageNo, pageSize);
         return registrations;
     }
 
     // http://localhost:8080/api/v1/registration
    @GetMapping("/id/{id}")
-    public Registration getRegistrationById(
+    public ResponseEntity<Registration> getRegistrationById(
             @PathVariable long id
-   ){
+   ) throws FileNotFoundException {
+       FileReader fr = new FileReader("C://test.txt");
         Registration registration = registrationService.getRegistrationById(id);
-        return registration;
+        return new ResponseEntity<>(registration, HttpStatus.OK);
    }
 }
