@@ -1,32 +1,34 @@
-package com.micriservice.comment.controller;
+package com.example.demo.controller;
 
-import com.micriservice.comment.entity.Comment;
-import com.micriservice.comment.service.CommentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.example.demo.entity.Comments;
+import com.example.demo.entity.Video;
+import com.example.demo.repository.CommentsRepository;
+import com.example.demo.repository.VideoRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/comments")
+@RequestMapping("/api/v1/comment")
 public class CommentController {
 
-    @Autowired
-    private CommentService commentService;
-    //http://localhost:8082/api/comments
+    private CommentsRepository commentsRepository;
+    private VideoRepository videoRepository;
 
-    @PostMapping
-    public ResponseEntity<Comment> saveComment(@RequestBody Comment comment){
-        Comment c = commentService.saveComment(comment);
-        return new ResponseEntity<>(c, HttpStatus.OK);
+
+    public CommentController(CommentsRepository commentsRepository, VideoRepository videoRepository) {
+        this.commentsRepository = commentsRepository;
+        this.videoRepository = videoRepository;
     }
 
-    @GetMapping("{postId}")
-    public List<Comment> getAllCommentsByPostId(@PathVariable String postId){
-        List<Comment> comments = commentService.getAllCommentByPostId(postId);
-        return comments;
-    }
+
+   @PostMapping
+    public ResponseEntity<Comments> createComment(
+            @RequestBody Comments comment,
+            @RequestParam long videoId
+    ){
+
+       Video video = videoRepository.findById(videoId).get();
+       
+   }
 
 }
