@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "video")
 public class Video {
@@ -12,6 +14,9 @@ public class Video {
 
     @Column(name = "url", nullable = false, length = 500)
     private String url;
+
+@OneToMany(mappedBy = "video", cascade = CascadeType.ALL, orphanRemoval = true)
+private Set<Comments> comments;
 
     public String getUrl() {
         return url;
