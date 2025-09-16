@@ -1,8 +1,5 @@
-package BuildingMethodWhenTheWrittenTypeIsInt;
+package app_java_6_1_pratice;
 
-public class B1 extends A1{
-	public void test() {//If you make a method final then overriding is not allowed
-		
-	}
+public class B1 {
 
 }
