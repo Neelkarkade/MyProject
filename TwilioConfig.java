@@ -17,21 +17,13 @@ public class TwilioConfig {
     @Value("${twilio.phone.number}")
     private String twilioPhoneNumber;
 
-    // This will run automatically after the bean is created
     @PostConstruct
     public void init() {
+        // Initialize Twilio once when the Spring context loads
         Twilio.init(accountSid, authToken);
     }
 
     public String getTwilioPhoneNumber() {
         return twilioPhoneNumber;
-    }
-
-    public String getAccountSid() {
-        return accountSid;
-    }
-
-    public String getAuthToken() {
-        return authToken;
     }
 }
