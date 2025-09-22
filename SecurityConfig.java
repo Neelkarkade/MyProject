@@ -25,6 +25,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()   // allow OTP endpoints
                         .requestMatchers("/api/v1/search-car/**").permitAll()    // allow GET search-car
                         .requestMatchers("/api/v1/crm/**").permitAll()
+                        .requestMatchers("/api/v1/brand/**").permitAll()
                         .requestMatchers("/api/v1/cars/add-car").hasAuthority("CONTENTMANAGER")
                         .anyRequest().authenticated()
                 )
