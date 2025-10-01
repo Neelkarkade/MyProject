@@ -89,6 +89,7 @@ public class AuthController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
 
+
         String jwtToken = jwtService.generateToken(opUser.get().getUsername());
         JWTTokenDto tokenDto = new JWTTokenDto();
         tokenDto.setToken(jwtToken);
