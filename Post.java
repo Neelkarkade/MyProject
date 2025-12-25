@@ -1,5 +1,8 @@
-package com.micriservice.comment.payload;
+package com.microservice.post.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,13 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "posts")
 public class Post {
-
-    private String postId;
-
+    @Id
+    private String id;
     private String title;
-     private String description;
-     private String content;
-
-
+    private String description;
+    private String content;
 }
