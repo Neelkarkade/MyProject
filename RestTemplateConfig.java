@@ -1,4 +1,4 @@
-package com.micriservice.comment.config;
+package com.microservice.post.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,5 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
-
     }
 }
