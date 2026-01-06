@@ -1,8 +1,32 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+      routes:
+        - id: post-service
+          uri: lb://post-service
+          predicates:
+            - Path=/api/posts/**
+
+        - id: comment-service
+          uri: lb://comment-service
+          predicates:
+            - Path=/api/comments/**
+
 eureka:
   instance:
-    hostname: localhost
+    prefer-ip-address: true
   client:
-    register-with-eureka:false
-    fetch-registry:false
-server:
-  port: 8761
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
