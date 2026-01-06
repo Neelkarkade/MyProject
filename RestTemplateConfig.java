@@ -1,4 +1,4 @@
-package com.microservice.post.config;
+package com.microservice.comment.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
