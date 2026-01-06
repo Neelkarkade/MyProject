@@ -1,10 +1,11 @@
-package com.apigateway;
+package com.api_gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-@EnableEurekaCliet
+@EnableDiscoveryClient
 public class ApiGatewayApplication {
 
 	public static void main(String[] args) {
