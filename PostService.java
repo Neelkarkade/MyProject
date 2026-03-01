@@ -15,12 +15,12 @@ public class PostService {
     private final PostRepository postRepository;
     private final RestTemplate restTemplate;
 
-    // ✅ Constructor Injection
     public PostService(PostRepository postRepository, RestTemplate restTemplate) {
         this.postRepository = postRepository;
         this.restTemplate = restTemplate;
     }
 
+    // ✅ FIXED: ID auto-generation
     public Post savePost(Post post) {
         post.setId(UUID.randomUUID().toString());
         return postRepository.save(post);
@@ -36,9 +36,8 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found with id: " + postId));
 
-        // ✅ FIXED & SAFE
         List comments = restTemplate.getForObject(
-                "http://COMMENT-SERVICE/api/comments/" + postId,
+                "http://comment-service/api/comments/" + postId,
                 List.class
         );
 
