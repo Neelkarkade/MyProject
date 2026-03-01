@@ -3,7 +3,6 @@ package com.microservice.post.controller;
 import com.microservice.post.entity.Post;
 import com.microservice.post.payload.PostDto;
 import com.microservice.post.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,30 +11,31 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/posts")
 public class PostController {
 
-
     private final PostService postService;
 
+    // ✅ Constructor Injection (CORRECT)
     public PostController(PostService postService) {
         this.postService = postService;
     }
 
-
-    @PostMapping
-    public ResponseEntity<Post> savePost(@RequestBody Post post){
+    // POST http://localhost:8081/api/posts
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<Post> savePost(@RequestBody Post post) {
         Post newPost = postService.savePost(post);
-        return  new ResponseEntity<>(newPost, HttpStatus.CREATED);
-    }
-    //http://localhost:8081/api/posts/{postId}
-    @GetMapping("/{postId}")
-    public Post getPostByPostId(@PathVariable String postId){
-        Post post = postService.findPostById(postId);
-        return post;
+        return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
     }
 
-    //http://localhost:8081/api/posts/{postId}/comments
+    // GET http://localhost:8081/api/posts/{postId}
+    @GetMapping("/{postId}")
+    public ResponseEntity<Post> getPostByPostId(@PathVariable String postId) {
+        Post post = postService.findPostById(postId);
+        return ResponseEntity.ok(post);
+    }
+
+    // GET http://localhost:8081/api/posts/{postId}/comments
     @GetMapping("/{postId}/comments")
-    public ResponseEntity<PostDto> getPostWithComments(@PathVariable String postId){
+    public ResponseEntity<PostDto> getPostWithComments(@PathVariable String postId) {
         PostDto postDto = postService.getPostWithComments(postId);
-        return new ResponseEntity<>(postDto,HttpStatus.OK);
+        return ResponseEntity.ok(postDto);
     }
 }
