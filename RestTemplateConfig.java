@@ -1,4 +1,4 @@
-package com.microservice.comment.config;
+package com.microservice.post.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ public class RestTemplateConfig {
 
     @Bean
     @LoadBalanced
-    public RestTemplate getRestTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 }
