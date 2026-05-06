@@ -45,7 +45,12 @@ public class AuthController {
 
         String hashpw = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
         user.setPassword(hashpw);
-        user.setRole("ROLE_USER");
+
+        // Default role assignment
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("ROLE_USER");
+        }
+
         userRepository.save(user);
         return new ResponseEntity<>("user created", HttpStatus.CREATED);
     }
@@ -89,8 +94,8 @@ public class AuthController {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
 
-
-        String jwtToken = jwtService.generateToken(opUser.get().getUsername());
+        // Generate JWT with role included
+        String jwtToken = jwtService.generateToken(opUser.get().getUsername(), opUser.get().getRole());
         JWTTokenDto tokenDto = new JWTTokenDto();
         tokenDto.setToken(jwtToken);
         tokenDto.setTokenType("JWT");
