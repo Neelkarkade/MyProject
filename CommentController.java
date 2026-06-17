@@ -1,7 +1,8 @@
-package com.microservice.comment.controller;
+package com.micriservice.comment.controller;
 
-import com.microservice.comment.entity.Comment;
-import com.microservice.comment.service.CommentService;
+import com.micriservice.comment.entity.Comment;
+import com.micriservice.comment.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,35 +13,20 @@ import java.util.List;
 @RequestMapping("/api/comments")
 public class CommentController {
 
-    private final CommentService commentService;
+    @Autowired
+    private CommentService commentService;
+    //http://localhost:8082/api/comments
 
-    public CommentController(CommentService commentService) {
-        this.commentService = commentService;
-    }
-
-    ///http://localhost:8082/api/comments
     @PostMapping
-    public ResponseEntity<?> saveComment(@RequestBody Comment comment) {
-        try {
-            Comment savedComment = commentService.saveComment(comment);
-            // Return 201 Created with saved comment
-            return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
-
-        } catch (RuntimeException e) {
-            // Return 404 Not Found if post does not exist or 500 Internal Server Error if Post service is down
-            String errorMessage = e.getMessage();
-            if (errorMessage != null && errorMessage.contains("not found")) {
-                return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-
-
-        }
+    public ResponseEntity<Comment> saveComment(@RequestBody Comment comment){
+        Comment c = commentService.saveComment(comment);
+        return new ResponseEntity<>(c, HttpStatus.OK);
     }
+
     @GetMapping("{postId}")
     public List<Comment> getAllCommentsByPostId(@PathVariable String postId){
-        List<Comment> comments = commentService.getAllCommentsByPostId(postId);
+        List<Comment> comments = commentService.getAllCommentByPostId(postId);
         return comments;
     }
+
 }
