@@ -1,4 +1,4 @@
-package com.microservice.comment.payload;
+package com.micriservice.comment.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post {
+
     private String postId;
+
     private String title;
-    private String description;
-    private String content;
+     private String description;
+     private String content;
+
 
 }
