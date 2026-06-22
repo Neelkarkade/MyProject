@@ -1,30 +1,20 @@
-package com.webapp.exception;
+package com.carsellbuy.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
-	
-@ExceptionHandler(ResourseNotFoundException.class)
-	public ResponseEntity<?>resourceNotFound(
-			ResourseNotFoundException e,
-			WebRequest webRequest
-			){
-		
-	return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-@ExceptionHandler(Exception.class)
-public ResponseEntity<?>exceptionHandler(
-		Exception e,
-		WebRequest webRequest
-		){
-	
-return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-}
-	
+import java.util.Map;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    // Catch all RuntimeExceptions (like "User not found" or "Invalid credentials")
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED) // 401 Unauthorized
+                .body(Map.of("error", ex.getMessage()));
+    }
 }
