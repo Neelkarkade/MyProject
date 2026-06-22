@@ -1,41 +1,41 @@
-package com.app.controller;
+package com.carsellbuy.controller;
 
-import javax.validation.Valid;
+import com.carsellbuy.repository.UserRepository;
+import com.carsellbuy.repository.CarRepository;
+import com.carsellbuy.repository.TransactionRepository;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.app.exceptions.AdminException;
-import com.app.model.Admin;
-import com.app.service.AdminServiceImpl;
-
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/api/admin")
 public class AdminController {
-	
-	@Autowired
-	private AdminServiceImpl asi;
-	
-	
-	
-	@PostMapping("/admin")
-	public ResponseEntity<Admin> registerAdmin(@Valid @RequestBody Admin admin) throws AdminException
-	{
-		 Admin adm = asi.addAdmin(admin);
-		 
-		 return new ResponseEntity<Admin>(adm,HttpStatus.OK);
-		
-	}
-	
-	
-	
-	
-	
-	
-	
 
+    private final UserRepository userRepository;
+    private final CarRepository carRepository;
+    private final TransactionRepository transactionRepository;
+
+    public AdminController(UserRepository userRepository, CarRepository carRepository, TransactionRepository transactionRepository) {
+        this.userRepository = userRepository;
+        this.carRepository = carRepository;
+        this.transactionRepository = transactionRepository;
+    }
+
+    @GetMapping("/stats")
+    public Map<String, Long> getStats() {
+        Map<String, Long> stats = new HashMap<>();
+        stats.put("users", userRepository.count());
+        stats.put("cars", carRepository.count());
+        stats.put("transactions", transactionRepository.count());
+        return stats;
+    }
+
+    @GetMapping("/dashboard")
+    public Map<String, String> dashboard() {
+        return Map.of(
+                "message", "Welcome Admin Dashboard",
+                "user", "neel@example.com"
+        );
+    }
 }
