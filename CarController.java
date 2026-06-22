@@ -1,20 +1,33 @@
-package com.app.controller;
+package com.carsellbuy.controller;
 
+import com.carsellbuy.entity.Car;
+import com.carsellbuy.repository.CarRepository;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/car")
+@RequestMapping("/api/cars")
 public class CarController {
 
-    @GetMapping
-    public ResponseEntity<String> getMessage(){
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> myIpAddress = restTemplate.getForEntity("https://api.ipify.org?format=json",String.class);
-        return myIpAddress;
+    private final CarRepository carRepository;
+
+    public CarController(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
+
+    @PostMapping("/add")
+    public Car addCar(@RequestBody Car car) {
+        return carRepository.save(car);
+    }
+
+    @GetMapping("/all")
+    public List<Car> getAllCars() {
+        return carRepository.findAll();
+    }
+
+    @GetMapping("/search/make/{make}")
+    public List<Car> searchByMake(@PathVariable String make) {
+        return carRepository.findByMakeIgnoreCase(make);
     }
 }
